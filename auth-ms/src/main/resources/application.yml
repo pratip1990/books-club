@@ -1,0 +1,33 @@
+server:
+  port: 9800
+
+spring:
+  profiles:
+    active: dev  
+    
+# Database connection properties
+  datasource:
+    url: jdbc:postgresql://localhost:5433/book_club_user
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+# Logging SQL statements
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+
+jwt: 
+  secret: helloasdasdasdasdadfdfsdfsdfasdasdawdawdasdasdwdasdaw
+  expiration: 120000
+  expiration-refresh: 300000
