@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.ph.authms.config.JwtUtils;
-import com.ph.authms.repository.UserRepository;
 import com.ph.authms.service.AuthService;
 import com.ph.coredtos.dto.AuthTokenDto;
 import com.ph.coredtos.dto.LoginRequestDto;
