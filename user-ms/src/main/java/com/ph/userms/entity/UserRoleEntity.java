@@ -14,7 +14,6 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -24,27 +23,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "user_roles", schema = "schema_user")
 @EntityListeners(AuditingEntityListener.class)
-public class UserRoleEntity extends BaseEnity{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class UserRoleEntity {
 
 	@EmbeddedId
-    private UserRolesId id;
+	private UserRolesId id;
 
-    @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+	@ManyToOne
+	@MapsId("userId")
+	@JoinColumn(name = "user_id")
+	private UserEntity user;
 
-    @ManyToOne
-    @MapsId("roleId")
-    @JoinColumn(name = "role_id")
-    private RoleEntity role;
+	@ManyToOne
+	@MapsId("roleId")
+	@JoinColumn(name = "role_id")
+	private RoleEntity role;
 
 }

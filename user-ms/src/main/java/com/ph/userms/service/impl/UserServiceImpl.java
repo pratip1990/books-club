@@ -3,6 +3,7 @@
  */
 package com.ph.userms.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,6 +49,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         UserEntity user = modelMapper.map(userDTO, UserEntity.class);
+        user.setCreatedBy(user.getUsername());
+        user.setUpdatedBy(user.getUsername());
+        user.setCreatedOn(LocalDateTime.now());
+        user.setUpdatedOn(LocalDateTime.now());
         UserEntity savedUser = userRepository.save(user);
         return modelMapper.map(savedUser, UserDTO.class);
     }

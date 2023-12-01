@@ -2,24 +2,32 @@ eureka:
    client:
       serviceUrl:
          defaultZone: http://localhost:8761/eureka
+      fetch-registry: true
+      
       instance:
-      preferIpAddress: true
+        preferIpAddress: true
+      
 server:
   port: 9802
 
+jwt: 
+  secret: helloasdasdasdasdadfdfsdfsdfasdasdawdawdasdasdwdasdaw
+  expiration: 120000
+  header: Authorization
+  
 spring:
   application:
     name: gateway-ms
-    
-    
-#zuul:
-#  routes:
-#    service1:
-#      path: /service1/**
-#      serviceId: service1
-#    service2:
-#      path: /service2/**
-#      serviceId: service2
-#    service3:
-#      path: /service3/**
-#      serviceId: service3
+    cloud:
+    gateway:
+      routes:
+        - id: USER-MS
+          uri: http://localhost:9806
+          predicates:
+            - Path=/user/**
+    discovery:
+      enabled: true
+      
+  main:
+    web-application-type: reactive
+  

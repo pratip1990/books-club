@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
  * 
  */
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/user/api/v1")
 @Tag(name = "User Management - V1")
 public class UserControllerV1 {
 

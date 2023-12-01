@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public ResponseEntity<AuthTokenDto> generateToken(LoginRequestDto logRequest) {
-		String validateUserUri = "http://localhost:9806/api/v1/user/verify";
+		String validateUserUri = "http://localhost:9806/user/api/v1/verify";
 
 		ResponseEntity<LoginResponseDto> loginResponse = restTemplate.postForEntity(validateUserUri,
 				new HttpEntity<LoginRequestDto>(logRequest), LoginResponseDto.class);

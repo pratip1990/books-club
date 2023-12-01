@@ -23,7 +23,7 @@ import com.ph.coredtos.dto.LoginResponseDto;
  */
 
 @RestController
-@RequestMapping("/auth/v1/")
+@RequestMapping("/auth/api/v1/")
 public class AuthController {
 
 	private final AuthService authService;

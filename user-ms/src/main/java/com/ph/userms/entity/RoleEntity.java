@@ -3,6 +3,8 @@
  */
 package com.ph.userms.entity;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
@@ -14,7 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -23,21 +24,30 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "role", schema = "schema_user")
 @EntityListeners(AuditingEntityListener.class)
-public class RoleEntity extends BaseEnity{
-    /**
+public class RoleEntity {
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
+	@Column(unique = true, nullable = false)
+	private String name;
+
+	@Column(name = "created_on")
+	private LocalDateTime createdOn;
+
+	@Column(name = "created_by")
+	private String createdBy;
+
+	@Column(name = "updated_on")
+	private LocalDateTime updatedOn;
+
+	@Column(name = "updated_by")
+	private String updatedBy;
 
 }
