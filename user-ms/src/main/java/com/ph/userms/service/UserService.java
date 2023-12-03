@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import com.ph.coredtos.dto.LoginRequestDto;
 import com.ph.coredtos.dto.LoginResponseDto;
 import com.ph.coredtos.dto.UserDTO;
+import com.ph.coredtos.dto.UserResponseDto;
 
 /**
  * 
@@ -27,4 +28,6 @@ public interface UserService {
 	List<UserDTO> getAllUsers();
 
 	ResponseEntity<LoginResponseDto> verifyUserLogin(LoginRequestDto loginRequestDto);
+
+	ResponseEntity<UserResponseDto> getUserDetailsByUsername(String username);
 }

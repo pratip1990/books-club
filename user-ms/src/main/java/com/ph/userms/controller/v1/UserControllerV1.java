@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ph.coredtos.dto.LoginRequestDto;
 import com.ph.coredtos.dto.LoginResponseDto;
 import com.ph.coredtos.dto.UserDTO;
+import com.ph.coredtos.dto.UserResponseDto;
 import com.ph.userms.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -94,6 +97,12 @@ public class UserControllerV1 {
         return userService.verifyUserLogin(loginRequestDto);
     }
     
-    
+    @Operation(summary = "Get Details of User by username", description = "Get Details of User by username")
+    @ApiResponse(responseCode = "204", description = "User Verified successfully")
+    @ApiResponse(responseCode = "404", description = "User not found")
+    @GetMapping(value = "/get-user-username", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserResponseDto> deleteUser(@RequestParam("username") String username) {
+        return userService.getUserDetailsByUsername(username);
+    }
 
 }
