@@ -1,0 +1,32 @@
+eureka:
+   client:
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka
+      instance:
+      preferIpAddress: true
+server:
+  port: 9806
+
+spring:
+  application:
+    name: book-ms
+      
+  profiles:
+    active: dev  
+    
+    # Database connection properties
+  datasource:
+    url: jdbc:postgresql://localhost:5433/book_club_book
+    username: postgres
+    password: postgres
+
+# Logging SQL statements
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
