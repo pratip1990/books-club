@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ph.coredtos.dto.UserResponseDto;
+import com.ph.gatewayms.exception.InvalidException;
+import com.ph.gatewayms.exception.TokenException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -53,16 +55,18 @@ public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<Object
                         .getBody();
 
                     if(isTokenExpired(claims)) {
-                        throw new RuntimeException("Token Exceptions :: Expired");
+                        throw new TokenException("Token Exceptions :: Expired");
                     }
                     
                     String userName = claims.getSubject();
                     if(verifiedWithUserName(userName)) {
-                    	 throw new RuntimeException("Token Exceptions :: Expired");
+                    	 throw new InvalidException("Token Exceptions :: Expired");
                     }
                     
                     // Set up Spring Security context
                     exchange.getRequest().mutate().header("Authorization", "Bearer " + token);
+                    exchange.getRequest().mutate().header("app-name", "GATEWAY-MS");
+                    exchange.getRequest().mutate().header("app-Key", "AXDOPS32153XSDS");
                 } catch (Exception e) {
                     // Handle invalid or expired token
                     exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -93,7 +97,7 @@ public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<Object
     }
     
     private boolean verifiedWithUserName(String username) {
-    	String validateUserUri = "/user/api/v1/get-user-username?username=" + username;
+    	String validateUserUri = "/user/api/v1/auth/get-user-username?username=" + username;
 
         // Use WebClient to make a GET request to the user service
         Mono<UserResponseDto> userResponseMono = webClient.get()
@@ -108,7 +112,7 @@ public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<Object
         log.info("Response of verifiedWithUserName: {}", userResponse);
 
         // Check if the response has a body
-        return userResponse != null;
+        return userResponse == null;
     }
     
     
